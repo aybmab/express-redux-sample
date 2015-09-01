@@ -1,23 +1,50 @@
 # Sample Express-Redux Application
 
-This is a sample project to help you bootstrap an entire web application from end to end!
+This is a sample project to help you bootstrap an entire web application from end to end! If you have any questions or suggestion, please feel free to reach out.
 
 ## Table of Content
 
-1. What exactly does the project contain?
-2. Stack
-3. 
-4. 
-5. 
-6. 
+1. [The Sample Project](https://github.com/aybmab/express-redux-sample#purpose)
+3. [Stack](https://github.com/aybmab/express-redux-sample#stack)
+4. [Purpose](https://github.com/aybmab/express-redux-sample#purpose)
+5. [Setting Up](https://github.com/aybmab/express-redux-sample#setting-up)
+6. [Todo List](https://github.com/aybmab/express-redux-sample#todo-list)
 
 
-## What exactly does the project contain?
+## The Sample Project
 
-This project:
-* Allows users to signup/login.
-* 
+I started by taking Redux's todo list example and hooking it up with a backend (losing the ability to filter and mark items as complete in the process - to be implemented eventually). I wanted to mostly figure out how to do the following:
 
+### A Good System Architecture and Project Directory
+
+I really wanted to spend time in coming up with a clean and organized structure for this implementation. I had two criteria for "good". The first was that anyone can easily understand what's going on. The second was that it'd be easy to implement new features. If either of those two weren't met, please let me know what could be done differently!
+
+On the highest level, I stuck with your classic client-server architecture. I then looked for some inspiration in how to organize each directory (look at the readme's in each respective folder).
+
+
+### REST API Server using Node
+
+Using Express, this was fairly straightforward.
+
+### A User System
+
+I'm using PassportJs to implement a user system. Essentially, a session token is generated when a client connects, it is then associated with an account if the user successfully signs on and saved to a store (currently the dev session store, but soon to be redis - though it could also be saved in the DB). The token is then used to authorize subsequent requests.
+
+### Redux
+
+Initially, I was using the flux architecture for the client side implementation, but then switched to redux. The idea is to have an immutable object that represents the state of the entire application. Everytime something happens, a new state object is created to reflect the change, and the views update accordingly. I definitely suggest reading up on redux and their examples [here](http://rackt.github.io/redux/).
+
+### Optimistic Updates
+
+After having a redux application connected to a backend, I wanted to implement optimistic updates (a.k.a. reflecting user updates immediately, even though the change wasn't necessarily saved). This was implemented by generating a unique idea on the client side and then using that reconcile after hearing back from the server.
+
+### Live Updates/Push Notifications
+
+After users were able to make changes, I didn't want them to have to refresh their page to see changes made by other users. I used socketio to alert each client of any updates. Please let me know what you think about this! I've never used backbone, but it seems to have a nice model and event system that could be worth exploring.
+
+### Client Side Routing
+
+I refused to use Angular for this project (wanted to learn something new), but become worried when I started to think about client-side routing. I'm currently using the react router - the version which is still in beta and isn't properly documented yet. It works well enough to get the job down, but I still need to do my research. It's still not clear to me what the best way of passing variables down the hierachy is.
 
 ## Stack
 
@@ -66,12 +93,14 @@ Lastly, run 'npm install' from the root directory. This will run the server and 
 
 ## Todo List
 
-* Finish implementing the todo example (allow users to mark items as completed).
-* Implement private todos.
-* Compile all steps to running the project into one script.
-* Figure out security holes.
+* Testing (for all moving pieces....).
+* Finish implementing the todo example (allow users to mark items as completed and filter the todo list).
+* Implement pagination or infinite scroll.
+* Implement private todos (and then use this to make sure data can be kept private between users).
+* Figure out security holes with in the current system.
 * Set up redis, specifically as the session store.
 * Form validation on the client side.
-* Testing (for all moving pieces....).
+* Params validation on the server side.
+* Write a script that handles all steps to running the project.
 
 Message me if I'm missing anything!

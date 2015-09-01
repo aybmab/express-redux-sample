@@ -1,50 +1,23 @@
 # Sample Express-Redux Application
 
-This is a sample project to help you bootstrap an entire web application from end to end! If you have any questions or suggestion, please feel free to reach out.
+## Purpose
+
+This is a sample project to help you bootstrap an entire web application from end to end! 
+
+When trying to build an end-to-end system (client + server) from scratch, I couldn't find any examples that were complete, so I decided to put one together. I then decided to publish the sample project to share with others in hopes of:
+
+* Receiving feedback, fine tuning my example and learning more myself.
+* Helping others get insight into solving certain problems or using certain libraries.
+
+So with that, please reach out with suggestions for improvments or questions if something doesn't make sense or isn't clear!
 
 ## Table of Content
 
-1. [The Sample Project](https://github.com/aybmab/express-redux-sample#purpose)
-3. [Stack](https://github.com/aybmab/express-redux-sample#stack)
-4. [Purpose](https://github.com/aybmab/express-redux-sample#purpose)
-5. [Setting Up](https://github.com/aybmab/express-redux-sample#setting-up)
-6. [Todo List](https://github.com/aybmab/express-redux-sample#todo-list)
-
-
-## The Sample Project
-
-I started by taking Redux's todo list example and hooking it up with a backend (losing the ability to filter and mark items as complete in the process - to be implemented eventually). I wanted to mostly figure out how to do the following:
-
-### A Good System Architecture and Project Directory
-
-I really wanted to spend time in coming up with a clean and organized structure for this implementation. I had two criteria for "good". The first was that anyone can easily understand what's going on. The second was that it'd be easy to implement new features. If either of those two weren't met, please let me know what could be done differently!
-
-On the highest level, I stuck with your classic client-server architecture. I then looked for some inspiration in how to organize each directory (look at the readme's in each respective folder).
-
-
-### REST API Server using Node
-
-Using Express, this was fairly straightforward.
-
-### A User System
-
-I'm using PassportJs to implement a user system. Essentially, a session token is generated when a client connects, it is then associated with an account if the user successfully signs on and saved to a store (currently the dev session store, but soon to be redis - though it could also be saved in the DB). The token is then used to authorize subsequent requests.
-
-### Redux
-
-Initially, I was using the flux architecture for the client side implementation, but then switched to redux. The idea is to have an immutable object that represents the state of the entire application. Everytime something happens, a new state object is created to reflect the change, and the views update accordingly. I definitely suggest reading up on redux and their examples [here](http://rackt.github.io/redux/).
-
-### Optimistic Updates
-
-After having a redux application connected to a backend, I wanted to implement optimistic updates (a.k.a. reflecting user updates immediately, even though the change wasn't necessarily saved). This was implemented by generating a unique idea on the client side and then using that reconcile after hearing back from the server.
-
-### Live Updates/Push Notifications
-
-After users were able to make changes, I didn't want them to have to refresh their page to see changes made by other users. I used socketio to alert each client of any updates. Please let me know what you think about this! I've never used backbone, but it seems to have a nice model and event system that could be worth exploring.
-
-### Client Side Routing
-
-I refused to use Angular for this project (wanted to learn something new), but become worried when I started to think about client-side routing. I'm currently using the react router - the version which is still in beta and isn't properly documented yet. It works well enough to get the job down, but I still need to do my research. It's still not clear to me what the best way of passing variables down the hierachy is.
+1. [Stack](https://github.com/aybmab/express-redux-sample#stack)
+2. [The Sample Project](https://github.com/aybmab/express-redux-sample#the-sample-project)
+3. [Setting Up](https://github.com/aybmab/express-redux-sample#setting-up)
+4. [Todo List](https://github.com/aybmab/express-redux-sample#todo-list)
+4. [Other Useful Things](https://github.com/aybmab/express-redux-sample#other-useful-things)
 
 ## Stack
 
@@ -57,50 +30,77 @@ I refused to use Angular for this project (wanted to learn something new), but b
 * [MySql](https://www.mysql.com/) - Database (you could easily interchange this with another).
 * [webpack](https://webpack.github.io/) - A module bundler (like [Browserify](http://browserify.org/)).
 
-## Purpose
+## The Sample Project
 
-When trying to build an end-to-end system (client + server) from scratch, I couldn't find any examples that were complete, so I decided to put one together. As I looked through many projects, I realized the following:
+I started by taking [Redux's todo list example](http://rackt.github.io/redux/docs/basics/ExampleTodoList.html) and hooking it up with a backend (losing the ability to filter and mark items as complete in the process - to be re-implemented eventually). I wanted to mostly figure out how to do the following:
 
-* There clearly is no standard in building a web application (which has it's pro's and con's).
-* A lot of documentation out there sucks.
-* There's a lot I don't know.
+### A Good System Architecture and Project Directory
 
-With that, I decided to publish my project to share with others in hopes of:
-* Receiving feedback, fine tuning my example and learning new things myself.
-* Helping others get insight into solving certain problems or using certain libraries.
+I really wanted to spend time in coming up with a clean and organized structure for this implementation. I had two criteria for "good". The first was that anyone can easily understand what's going on. The second was that it'd be easy to implement new features. If either of those two weren't met, please let me know what could be done differently!
 
-So with that, please reach out with suggestions for improvments or questions if something doesn't make sense or isn't clear!
+On the highest level, I chose the classic client-server architecture. I then looked for some inspiration on how to organize each directory (look at the readme's in each respective folder).
+
+
+### REST API Server Using Node
+
+Using [Express](http://expressjs.com/), this was fairly straightforward.
+
+### A User System
+
+I'm using [PassportJs](http://passportjs.org/) to implement a user system. Essentially, a session token is generated when a client connects, it is then associated with an account if the user successfully signs on and saved to a store (currently the dev session store, but soon to be redis - though it could also be saved in the DB). The token is then used to authorize subsequent requests.
+
+### Redux
+
+Initially, I was using the flux architecture for the client side implementation, but then switched to redux. The idea is to have an immutable object that represents the state of the entire application. Everytime something happens, a new state object is created to reflect the change, and the views update accordingly. I definitely suggest reading up on redux and their examples [here](http://rackt.github.io/redux/).
+
+### Optimistic Updates
+
+After having a redux application connected to a backend, I wanted to implement optimistic updates (a.k.a. reflect user updates immediately, even though the change wasn't necessarily saved). This was implemented by generating a unique id on the client side and then using that to reconcile after hearing back from the server.
+
+### Live Updates/Push Notifications
+
+After users were able to make changes, I didn't want them to have to refresh their page to see changes made by other users. I used [SocketIO](http://socket.io/) to alert each client of any update. Please let me know what you think about this! I've never used backbone, but it seems to have a nice model and event system that could be worth exploring.
+
+### Client Side Routing
+
+I refused to use Angular for this project (wanted to learn something new), but become worried when I started to think about client-side routing. I'm currently using the react router - the version which is still in beta and isn't properly documented yet. It works well enough to get the job done, but I still need to do my research. It's still not clear to me what the best way of passing variables down the hierarchy is when using the router.
 
 ## Setting up
 
-1. Follow the steps in docs/settingUpMySql.md to set up mysql locally.
-2. Download [SequelPro](http://www.sequelpro.com/) if you want a db query tool for your MySQL server.
-3. Create a database and user
-3. Run 'npm install' in the root directory and in the /client folder.
+1. Follow the steps in docs/settingUpMySql.md to set up mysql locally and create a DB user.
+2. Run 'npm install' in both the /server and /client directory (I am treating both as different projects).
 
 ## Running the project
 
-There currently isn't a "one step" script to run the entire application (e.g. ./watch.sh").
+Note: There currently isn't a "one step" script to run the entire application, so you may need 2 terminals.
 
-First, make sure that the myql server is running on your machine.
+After setting up...
 
-Second, run the database set up script using 'node /server/config/database_creation_script.js'. This will clear any tables and recreate them. Note: this is a hack until we can come up with a proper migration process. 
-
-Then, run 'webpack --progress --color --watch' in the /client folder. This will compile the current client code and continue to compile future changes.
-
-Lastly, run 'npm install' from the root directory. This will run the server and recompile on new server changes.
-
+1. Make sure that the myql server is running on your machine.
+2. Run the database set up script using 'node /server/config/database_creation_script.js'. This will clear any tables and recreate them. Note: this is in place until we can come up with a better migration process. 
+3. Run 'webpack --progress --color --watch' in the /client folder. This will compile the current client code and continue to compile future changes. It's nice to keep an eye on this as you update the client project.
+4. Run 'npm start' from the server folder. This will run the server and recompile on new server changes.
 
 ## Todo List
 
-* Testing (for all moving pieces....).
+Here is a list of things that I still need to implement and/or figure out:
+
+* Testing (for all parts of the project...).
 * Finish implementing the todo example (allow users to mark items as completed and filter the todo list).
 * Implement pagination or infinite scroll.
 * Implement private todos (and then use this to make sure data can be kept private between users).
-* Figure out security holes with in the current system.
-* Set up redis, specifically as the session store.
+* Figure out security holes within the current system.
+* Set up redis, specifically for the session store.
 * Form validation on the client side.
 * Params validation on the server side.
 * Write a script that handles all steps to running the project.
 
-Message me if I'm missing anything!
+Message me if I'm missing anything or if you have a suggestion for how to do any of these!
+
+### Other Useful Things
+
+1. Download [SequelPro](http://www.sequelpro.com/) if you want a db query tool for your MySQL server.
+2. Want friends to test you app running on localhost? Use [localtunnel](http://localtunnel.me/)
+
+Again, let me know if anything is work going on this list!
+

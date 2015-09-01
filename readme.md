@@ -9,7 +9,7 @@ When trying to build an end-to-end system (client + server) from scratch, I coul
 * Receiving feedback, fine tuning my example and learning more myself.
 * Helping others get insight into solving certain problems or using certain libraries.
 
-So with that, please reach out with suggestions for improvments or questions if something doesn't make sense or isn't clear!
+So with that, please reach out with suggestions for improvements or questions if something doesn't make sense or isn't clear!
 
 ## Table of Content
 
@@ -25,20 +25,20 @@ So with that, please reach out with suggestions for improvments or questions if 
 * [Redux](http://rackt.github.io/redux/) - A state container for Javascript web applications derived from [Facebook's flux architecture](https://facebook.github.io/flux/docs/overview.html).
 * [React](http://facebook.github.io/react/) - A Javascript library for building UI components.
 * [React Router](http://rackt.github.io/react-router/) - A routing solution to handle routing on the client side. 
-* [PassportJs](http://passportjs.org/) - Authenticatin middleware used to implement the user system. 
+* [PassportJs](http://passportjs.org/) - Authentication middleware used to implement the user system. 
 * [SocketIO](http://socket.io/) - Used to push updates to users via open sockets.
 * [MySql](https://www.mysql.com/) - Database (you could easily interchange this with another).
 * [webpack](https://webpack.github.io/) - A module bundler (like [Browserify](http://browserify.org/)).
 
 ## The Sample Project
 
-I started by taking [Redux's todo list example](http://rackt.github.io/redux/docs/basics/ExampleTodoList.html) and hooking it up with a backend (losing the ability to filter and mark items as complete in the process - to be re-implemented eventually). I wanted to mostly figure out how to do the following:
+I started by taking [Redux's todo list example](http://rackt.github.io/redux/docs/basics/ExampleTodoList.html) and hooking it up with a backend (losing the ability to filter and mark items as complete in the process - to be re-implemented eventually). I wanted to mostly focus on the following:
 
 ### A Good System Architecture and Project Directory
 
-I really wanted to spend time in coming up with a clean and organized structure for this implementation. I had two criteria for "good". The first was that anyone can easily understand what's going on. The second was that it'd be easy to implement new features. If either of those two weren't met, please let me know what could be done differently!
+I spent some time coming up with a clean and organized structure for this implementation. I had two criteria for "good". The first was that anyone can easily understand what's going on. The second was that it'd be easy to implement new features. If either of those two weren't met, please let me know what could be done differently!
 
-On the highest level, I chose the classic client-server architecture. I then looked for some inspiration on how to organize each directory (look at the readme's in each respective folder).
+On the highest level, I chose the classic client-server architecture - I wanted a clear separation between the two. I then looked for some inspiration on how to organize each directory (look at the readme's in each respective folder).
 
 
 ### REST API Server Using Node
@@ -55,7 +55,7 @@ Initially, I was using the flux architecture for the client side implementation,
 
 ### Optimistic Updates
 
-After having a redux application connected to a backend, I wanted to implement optimistic updates (a.k.a. reflect user updates immediately, even though the change wasn't necessarily saved). This was implemented by generating a unique id on the client side and then using that to reconcile after hearing back from the server.
+After having a redux application connected to a backend, I wanted to implement optimistic updates (a.k.a. reflect user updates immediately, even though the change wasn't necessarily saved). This was implemented by generating a unique id on the client side and then using that to reconcile after hearing back from the server. By using the client-side-generated id, react nicely handles updating the view and notifying the user on the status of each change.
 
 ### Live Updates/Push Notifications
 
@@ -69,6 +69,7 @@ I refused to use Angular for this project (wanted to learn something new), but b
 
 1. Follow the steps in docs/settingUpMySql.md to set up mysql locally and create a DB user.
 2. Run 'npm install' in both the /server and /client directory (I am treating both as different projects).
+3. Run the database set up script using 'node /server/config/database_creation_script.js'. This will clear any tables and recreate them. Note: this is in place until we can come up with a better migration process. 
 
 ## Running the project
 
@@ -77,9 +78,8 @@ Note: There currently isn't a "one step" script to run the entire application, s
 After setting up...
 
 1. Make sure that the myql server is running on your machine.
-2. Run the database set up script using 'node /server/config/database_creation_script.js'. This will clear any tables and recreate them. Note: this is in place until we can come up with a better migration process. 
-3. Run 'webpack --progress --color --watch' in the /client folder. This will compile the current client code and continue to compile future changes. It's nice to keep an eye on this as you update the client project.
-4. Run 'npm start' from the server folder. This will run the server and recompile on new server changes.
+2. Run 'npm start' in the /client folder. This will compile the current client code using [webpack](https://webpack.github.io/) and continue to compile future changes. It's nice to keep an eye on this as you update the client project.
+3. Run 'npm start' from the server folder. This will run the server using [supervisor](https://github.com/petruisfan/node-supervisor) and rerun on new server changes.
 
 ## Todo List
 

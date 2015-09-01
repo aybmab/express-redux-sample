@@ -1,4 +1,4 @@
-Setting up mysql locally.
+```
 	-	Download from online (requires creating an Oracle account) and install.
 	- Make sure you add the download to your path (PATH=$PATH:/usr/local/mysql/bin);
 	- Add an account to your mysql server
@@ -13,3 +13,4 @@ Setting up mysql locally.
 										  password  : "bunnies",						// whatever password you choose
 										  database  : "testmysql"						// I used "Sequel Pro" to create this database
 										}
+```

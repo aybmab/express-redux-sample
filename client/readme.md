@@ -4,7 +4,7 @@
 ```
 client
 |-- index.html                          // The main container for the client application
-|-- index.js                            // The entry point for running the project application
+|-- index.js                            // The entry point for running the client application
 |-- webpack.config.js                   // The configuration for webpack
 |-- actions/                            // Redux Actions folders 
 |   ....

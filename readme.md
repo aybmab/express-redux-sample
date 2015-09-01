@@ -2,6 +2,23 @@
 
 This is a sample project to help you bootstrap an entire web application from end to end!
 
+## Table of Content
+
+1. What exactly does the project contain?
+2. Stack
+3. 
+4. 
+5. 
+6. 
+
+
+## What exactly does the project contain?
+
+This project:
+* Allows users to signup/login.
+* 
+
+
 ## Stack
 
 * [Express](http://expressjs.com/) - Node.js web application framework used for server. Sets up the REST API and handles communication with the database.
@@ -30,12 +47,12 @@ So with that, please reach out with suggestions for improvments or questions if 
 ## Setting up
 
 1. Follow the steps in docs/settingUpMySql.md to set up mysql locally.
-2. Download [SequelPro](http://www.sequelpro.com/) if you need db query tool for your MySQL server.
+2. Download [SequelPro](http://www.sequelpro.com/) if you want a db query tool for your MySQL server.
 3. Create a database and user
 3. Run 'npm install' in the root directory and in the /client folder.
 
 ## Running the project
-'''
+
 There currently isn't a "one step" script to run the entire application (e.g. ./watch.sh").
 
 First, make sure that the myql server is running on your machine.
@@ -46,7 +63,6 @@ Then, run 'webpack --progress --color --watch' in the /client folder. This will 
 
 Lastly, run 'npm install' from the root directory. This will run the server and recompile on new server changes.
 
-'''
 
 ## Todo List
 

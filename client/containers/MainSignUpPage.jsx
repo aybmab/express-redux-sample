@@ -9,28 +9,27 @@ class MainSignUpPage extends Component {
   constructor(props) {
     super(props);
   }
-
   componentWillMount() {
     if (this.props.userAuthSession.isLoggedIn){
-      console.log("user is logged in, transition home");
       this.context.router.transitionTo('/dash');
     }
   }
   componentDidUpdate() {
     if (this.props.userAuthSession.isLoggedIn){
-      console.log("user is logged in, transition home");
       this.context.router.transitionTo('/dash');
     }
   }
 
   render() {
     const { dispatch, userAuthSession } = this.props;
-    // TODO is fetching logged in status, show loader...
     return (        
-      <div> 
+      <div style={{width: '33%', textAlign: 'center', marginLeft: '100px'}}> 
         <h1> Sign Up </h1>
-        <SignUpForm onClickSignUp={(email, password, displayName) =>
-                        dispatch(attemptSignUp(email, password, displayName))}  />
+        <SignUpForm onClickSignUp={(formData) => {
+                      dispatch(attemptSignUp(formData.email, formData.password, formData.displayName))
+                    }} 
+                    isFetchingData={userAuthSession.fetchingAuthUpdate}
+                    serverError={userAuthSession.error} />
       </div>
     );
   }

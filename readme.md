@@ -94,6 +94,8 @@ Here is a list of things that I still need to implement and/or figure out:
 * Form validation on the client side.
 * Params validation on the server side.
 * Write a script that handles all steps to running the project.
+* Add a loader/spinner (something like react-loader).
+* When forms fail on the server side, pass back which field failed (remove the current hack on the client side).
 
 Message me if I'm missing anything or if you have a suggestion for how to do any of these!
 

@@ -62,12 +62,7 @@ export default class SignUpForm extends Component {
       newState.isPasswordFieldIncorrect = true;
     }
 
-    this.setState(newState);
-    if (!newState.errorMessage){
-      return false; // no error
-    } else {
-      return true;
-    }
+    return newState;
   }
 
   handleOnClickSignUp(){
@@ -78,10 +73,11 @@ export default class SignUpForm extends Component {
       confirmedPassword : this.refs.confirmPassword.getDOMNode().value.trim()
     }
 
-    let errors = this.findErrorsInSignupForm(formData);
-    if (!errors){
+    let newState = this.findErrorsInSignupForm(formData);
+    this.setState(newState);
+    if (!newState.errorMessage){
       this.props.onClickSignUp(formData);
-    }
+    } 
   }
 
   componentDidMount(){
@@ -105,7 +101,7 @@ export default class SignUpForm extends Component {
     if (this.props.isFetchingData){
       loader = <p> loading </p>;
     }
-    //TODO create an "FormErrorMessage" component
+    //TODO create a "FormErrorMessage" component
     if(this.state.errorMessage){
       errorLabel = (
         <div className={this.getInputContainerClass(true)}> 
@@ -120,8 +116,8 @@ export default class SignUpForm extends Component {
     }
     return ( 
       <div>
-        {loader}
-        {errorLabel}
+        { loader }
+        { errorLabel }
         <div className={this.getInputContainerClass(this.state.isDisplayNameFieldIncorrect)}> 
           <input className="form-control" type="text" placeholder="Display Name" ref="displayName"/>
         </div> 

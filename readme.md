@@ -83,7 +83,7 @@ After setting up...
 
 ## Todo List
 
-Here is a list of things that I still need to implement and/or figure out:
+Here is a list of things that I still need to implement/fix and/or learn about:
 
 * Testing (for all parts of the project...).
 * Finish implementing the todo example (allow users to mark items as completed and filter the todo list).
@@ -96,6 +96,8 @@ Here is a list of things that I still need to implement and/or figure out:
 * Write a script that handles all steps to running the project.
 * Add a loader/spinner (something like react-loader).
 * When forms fail on the server side, pass back which field failed (remove the current hack on the client side).
+* Write a more generic form class that other forms can inherit from.
+* Reset server error when leaving a form with an error (otherwise you'll see it when rendering another form).
 
 Message me if I'm missing anything or if you have a suggestion for how to do any of these!
 

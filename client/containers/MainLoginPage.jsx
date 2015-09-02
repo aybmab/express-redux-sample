@@ -10,27 +10,31 @@ class MainLoginPage extends Component {
     super(props);
   }
 
-  componentWillMount() {
+  transferToDashboardIfLoggedIn(){
     if (this.props.userAuthSession.isLoggedIn){
-      console.log("user is logged in, transition home");
       this.context.router.transitionTo('/dash');
-    }
+    } 
   }
+
+  componentWillMount() {
+    this.transferToDashboardIfLoggedIn();
+  }
+
   componentDidUpdate() {
-    if (this.props.userAuthSession.isLoggedIn){
-      console.log("user is logged in, transition home");
-      this.context.router.transitionTo('/dash');
-    }
+    this.transferToDashboardIfLoggedIn();
   }
 
   render() {
     const { dispatch, userAuthSession } = this.props;
     // TODO is fetching logged in status, show loader...
     return (        
-      <div> 
+      <div style={{width: '33%', textAlign: 'center', marginLeft: '100px'}}> 
         <h1> Login </h1>
-        <LoginForm onClickLogin={(email, password) =>
-                          dispatch(attemptLogin(email, password))}  />
+        <LoginForm onClickLogin={(formData) => {
+                      dispatch(attemptLogin(formData.email, formData.password))
+                    }} 
+                    isFetchingData={userAuthSession.fetchingAuthUpdate}
+                    serverError={userAuthSession.error} />
       </div>
     );
   }

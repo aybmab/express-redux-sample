@@ -9,15 +9,19 @@ class MainSignUpPage extends Component {
   constructor(props) {
     super(props);
   }
-  componentWillMount() {
+
+  transferToDashboardIfLoggedIn(){
     if (this.props.userAuthSession.isLoggedIn){
       this.context.router.transitionTo('/dash');
-    }
+    } 
   }
+
+  componentWillMount() {
+    this.transferToDashboardIfLoggedIn();
+  }
+
   componentDidUpdate() {
-    if (this.props.userAuthSession.isLoggedIn){
-      this.context.router.transitionTo('/dash');
-    }
+    this.transferToDashboardIfLoggedIn();
   }
 
   render() {

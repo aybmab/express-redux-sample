@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Navigation } from 'react-router';
 
 import SignUpForm from '../components/authentication/SignUpForm';
-import { attemptSignUp } from '../actions/AuthActions';
+import { attemptSignUp, navigatedAwayFromAuthFormPage } from '../actions/AuthActions';
 
 class MainSignUpPage extends Component {
   constructor(props) {
@@ -22,6 +22,9 @@ class MainSignUpPage extends Component {
 
   componentDidUpdate() {
     this.transferToDashboardIfLoggedIn();
+  }
+  componentWillUnmount() {
+    this.props.dispatch(navigatedAwayFromAuthFormPage());
   }
 
   render() {

@@ -3,27 +3,26 @@ import { connect } from 'react-redux';
 import { Navigation } from 'react-router';
 
 import LoginForm from '../components/authentication/LoginForm';
-import { attemptLogin } from '../actions/AuthActions';
+import { attemptLogin, navigatedAwayFromAuthFormPage } from '../actions/AuthActions';
 
 class MainLoginPage extends Component {
   constructor(props) {
     super(props);
   }
-
   transferToDashboardIfLoggedIn(){
     if (this.props.userAuthSession.isLoggedIn){
       this.context.router.transitionTo('/dash');
     } 
   }
-
   componentWillMount() {
     this.transferToDashboardIfLoggedIn();
   }
-
   componentDidUpdate() {
     this.transferToDashboardIfLoggedIn();
   }
-
+  componentWillUnmount() {
+    this.props.dispatch(navigatedAwayFromAuthFormPage());
+  }
   render() {
     const { dispatch, userAuthSession } = this.props;
     // TODO is fetching logged in status, show loader...
@@ -38,7 +37,6 @@ class MainLoginPage extends Component {
       </div>
     );
   }
-
 }
 
 MainLoginPage.contextTypes = {

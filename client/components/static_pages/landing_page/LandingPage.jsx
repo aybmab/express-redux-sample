@@ -11,7 +11,6 @@ class LandingPageHeader extends Component {
 				<div className="landing-page-header-container-subtitle">
 					Here's one way to build an App!
 				</div>
-
 			</div>);
 	}
 }

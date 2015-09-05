@@ -16,6 +16,10 @@ export const Checked_Session_Status = 'Checked_Session_Status';
 export const Clicked_Logout = 'Clicked_Logout';
 export const Logout_Success = 'Logout_Success';
 
+// Note: Considered creating a new actions file for navigation
+//				related actions. For now, will leave these here.
+export const Navigate_Away_From_Auth_Form = 'Navigate_Away_From_Auth_Form';
+
 /*
  * other constants
  */
@@ -148,3 +152,7 @@ export function attemptLogout(){
   }
 }
 
+
+export function navigatedAwayFromAuthFormPage() {
+	return { type: Navigate_Away_From_Auth_Form }
+}

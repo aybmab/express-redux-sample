@@ -8,39 +8,7 @@ import { attemptLogout } from '../actions/AuthActions';
 import Navbar from '../components/Navbar';
 import SignUpForm from '../components/authentication/SignUpForm';
 import LoginForm from '../components/authentication/LoginForm';
-
-class StatusBox extends Component {
-  render() {
-    var status;
-    var error = "None";
-
-    if (this.props.userAuthSession){
-      if (this.props.userAuthSession.isLoggedIn){
-        status = "Logged in as '"+this.props.userAuthSession.userObject.displayName+"'.";
-      }
-      else if (this.props.userAuthSession.fetchingAuthUpdate){
-        status = "Retrieving user info...";
-      }
-      else {
-        status = "Not logged in.";
-      }
-    } else {
-      status = "Something went wrong...";
-    }
-
-    if (this.props.userAuthSession.error){
-      error = this.props.userAuthSession.error;
-    }
-
-    return (        
-      <div> 
-        <p> Login Status: </p>
-        <p> status: {status} </p>
-        <p> error: {error} </p>
-      </div>
-    );
-  }
-}
+import LandingPage from '../components/static_pages/landing_page/LandingPage.jsx';
 
 class App extends Component {
   constructor(props) {
@@ -59,7 +27,7 @@ class App extends Component {
     var content;
     var landingPage; //TODO move this to components/static_pages
     if (children === undefined){
-      landingPage = <h1> Here's my landing page :) </h1>;
+      landingPage = <LandingPage />;
     }
 
     return (

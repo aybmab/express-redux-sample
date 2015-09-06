@@ -11,16 +11,17 @@ export default class TodoList extends Component {
         todoElements.push(<Todo {...todos[todoId]}
                 key={todos[todoId].clientUUID}
                 isSaved={true}
-                onClick={() => this.props.onTodoClick(index)} />);
+                onClickUserName={this.props.onClickUserName} />);
       }
     );
     Object.keys(unsavedTodos).forEach( (todoId) => {
         todoElements.push(<Todo {...unsavedTodos[todoId]}
                 key={unsavedTodos[todoId].clientUUID}
                 isSaved={false}
-                onClick={() => this.props.onTodoClick(index)} />);
+                onClickUserName={this.props.onClickUserName} />);
       }
     );
+    todoElements.reverse();
 
     return (
       <ul>

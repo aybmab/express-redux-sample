@@ -18,11 +18,11 @@ import App from './App';
 import MainSignUpPage from './MainSignUpPage';
 import MainLoginPage from './MainLoginPage';
 import Dashboard from './Dashboard';
+import UserProfilePage from './UserProfilePage';
 
 // Static Pages
 import AboutUs from '../components/static_pages/AboutUs';
 import SettingsPage from '../components/static_pages/SettingsPage';
-
 
 // Set up store
 const createStoreWithMiddleware = applyMiddleware(
@@ -45,6 +45,8 @@ var routes = (
     <Route path="settings" component={SettingsPage}/>
 
     <Route path="dash" component={Dashboard}/>
+
+    <Route path="user/:id" component={UserProfilePage}/>
   </Route>
 );
 

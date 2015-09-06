@@ -3,6 +3,7 @@ var path = require('path');
 
 // Rest API
 require(path.join(__dirname, './', 'todos'))(router);
+require(path.join(__dirname, './', 'users'))(router);
 
 // Homepage/Client 
 router.get('/', function(req, res, next) {

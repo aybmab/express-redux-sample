@@ -12,7 +12,7 @@ import TodoWidget from '../components/todo_components/TodoWidget';
 
 //TODO put this in some utility class somewhere and import it
 function generateUUID(){
-  //Note: this is a simple implentation for this project.
+  //Note: this is a simple implentation for this project. //TODO create a better one
   return (Math.round(Math.random()*10000000000000000).toString()+(Date.now()));
 }
 
@@ -30,7 +30,7 @@ class Dashboard extends Component {
     if (userAuthSession.isLoggedIn) {
       content = (
         <TodoWidget fetchInitialData={registerToUniversalTodo}
-                    title = {"Universal Todo List"}
+                    title = {"Universal List"}
                     onAddClick = {text =>
                                     dispatch(addUniversalTodo(text, generateUUID(),userAuthSession.userObject))
                                  }
@@ -45,6 +45,10 @@ class Dashboard extends Component {
                     onFilterChange = {nextFilter =>
                                         dispatch(setVisibilityFilter(nextFilter))
                                      }
+                    onClickUserName = { userId =>
+                                        this.context.router.transitionTo('/user/'+userId)
+                                     }
+
         />
       );
     } else {

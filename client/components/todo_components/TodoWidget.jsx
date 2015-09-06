@@ -19,7 +19,8 @@ export default class TodoWidget extends Component {
         <TodoList
           todos={this.props.todos}
           unsavedTodos={this.props.unsavedTodos}
-          onTodoClick={this.props.onTodoClick} />
+          onTodoClick={this.props.onTodoClick}
+          onClickUserName={this.props.onClickUserName} />
       </div>
     );
   }

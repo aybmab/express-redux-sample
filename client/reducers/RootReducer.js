@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { updateUserInfo } from './AuthReducer';
 import { updateUniversalTodoList, updateUniversalUnsavedTodoList } from './TodoReducer';
+import { updateProfileData } from './ProfileReducer';
 
 // import { Add_Todo, Complete_Todo, Set_Visibility_Filter, VisibilityFilters  } from '../actions/TodoActions';
 // const { Show_All } = VisibilityFilters;
@@ -17,13 +18,14 @@ import { updateUniversalTodoList, updateUniversalUnsavedTodoList } from './TodoR
 //   }
 // }
 
-
-// TODO check if this works:
 const RootReducer = combineReducers({
-  // visibilityFilter: updateVisibilityFilter,
+  // visibilityFilter: updateVisibilityFilter, //TODO implement or remove...
   universalTodos: updateUniversalTodoList,
   unsavedUniversalTodos: updateUniversalUnsavedTodoList,
-  userAuthSession: updateUserInfo
+  userAuthSession: updateUserInfo,
+
+  //For viewing profiles.
+  userProfileData: updateProfileData
 
 });
 

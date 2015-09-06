@@ -1,10 +1,22 @@
 import React, { Component, PropTypes } from 'react';
 
 export default class Todo extends Component {
+  constructor(props) {
+    super(props);
+    this.transferToUserPage = this.transferToUserPage.bind(this);
+  }
+  transferToUserPage(){
+    this.props.onClickUserName(this.props.creator.id)
+  }
   render() {
-    var text = this.props.text + " (created by "+ this.props.creator.displayName +")";
-    if (!this.props.isSaved) (text = text+ " (not saved yet)");
-    if (this.props.failedToAdd) (text = text+ " (failed to save)");
+    var content = this.props.text;
+    var author = "@"+ this.props.creator.displayName;
+    var savedStatus;
+    if (!this.props.isSaved) {
+      savedStatus = <span> "(not saved yet)" </span>;
+    } else if(this.props.failedToAdd) {  
+     savedStatus = <span>"(failed to save)";</span>
+    } 
 
     return (
       <li
@@ -13,7 +25,14 @@ export default class Todo extends Component {
           textDecoration: this.props.completed ? "line-through" : "none",
           cursor: this.props.completed ? "default" : "pointer"
         }}>
-        {text} 
+        <span>{content} </span> 
+
+         - posted by: <a onClick={this.transferToUserPage} style={{
+              href: "#"
+            }}> {author} 
+
+        </a>  {savedStatus}  
+
       </li>
     );
   }

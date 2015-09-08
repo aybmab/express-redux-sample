@@ -3,6 +3,35 @@ import { connect } from 'react-redux';
 
 import { fetchUserProfile, reloadingProfilePage } from '../actions/ProfileActions';
 
+
+
+class UserTodoList extends Component {
+  render(){
+    var todoElements;
+
+    var todoObjects = this.props.todos;
+
+    if(Object.keys(todoObjects).length === 0){
+      todoElements = <p> This user hasn't created any todos. </p>;
+    } else {
+      todoElements = [];
+      
+      Object.keys(todoObjects).forEach(function(todo, value){
+        todoElements.push(<li> {todoObjects[todo]}</li>);
+      });
+      todoElements = <ul> {todoElements} </ul>;
+    }
+
+    return(
+        <div>
+          {todoElements}
+        </div>
+      );
+  }
+}
+
+
+
 class UserProfilePage extends Component {
   constructor(props, context) {
     super(props, context);
@@ -39,9 +68,18 @@ class UserProfilePage extends Component {
       content = <p> Sorry Something went wrong: {userProfileData.error} </p>;
     } else {
       content = <div>
-                  <p> display name: {userProfileData.userData.displayName} </p>
-                  <p> email: {userProfileData.userData.email} </p>
+                  <p> display name: {userProfileData.userData.userInfo.displayName} </p>
+                  <p> email: {userProfileData.userData.userInfo.email} </p>
                 </div>;
+    }
+
+    var todoList;
+    if (userProfileData !== undefined){
+      if(userProfileData.userData !== null){
+        if (userProfileData.userData.userCreatedTodos !== null){
+          todoList = <UserTodoList todos={userProfileData.userData.userCreatedTodos}/>;
+        }
+      }
     }
 
     return (        
@@ -49,6 +87,7 @@ class UserProfilePage extends Component {
         <h1> Profile Page </h1>
         <h2> User id: {this.props.params.id} </h2>
         {content}
+        {todoList}
       </div>
     );
   }

@@ -22,6 +22,7 @@ class App extends Component {
     // Injected by React Router
     const { location, children } = this.props;
     const { pathname } = location;
+    
     const value = pathname.substring(1);
 
     var content;

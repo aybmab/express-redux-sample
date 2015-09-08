@@ -6,7 +6,7 @@ var setUserRoutes = function(router){
 	router.get('/api/v1/users/:id', 
 		function (req, res) {
 			var userId = req.params.id;
-		  userModel.getUserSettings(userId, 
+		  userModel.getUserProfile(userId, 
 																function(result){
 														    	return res.json(result);
 																}

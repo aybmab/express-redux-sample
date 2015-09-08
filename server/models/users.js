@@ -3,38 +3,53 @@ var dbConnectionCreator = require('../utilities/mysqlConnection.js');
 
 var userModel = {
 
-	convertRowToUserProfileObject: function(row) {
+	convertRowsToUserProfileObject: function(rows) {
+		var todos = {};
+		rows.forEach(function(todo){
+			if(todo.todo_id !== null){
+				todos[todo.todo_id] = todo.text;
+			}
+		});		
+
+		var userInfo = {
+			id: rows[0].user_id,
+			email: rows[0].email,
+			displayName: rows[0].display_name
+		}
 		return {
-			id: row.id,
-			email: row.email,
-			displayName: row.display_name
+			userInfo : userInfo,
+			userCreatedTodos : todos
 		};
 	},
 
-	getUserSettings : function(userId, callback) {
+	getUserProfile : function(userId, callback) {
 		var dbConnection = dbConnectionCreator();
-		var getUserSettingsSqlString = constructGetUserSettingsSqlString(userId);
+		var getUserSettingsSqlString = constructGetUserProfileSqlString(userId);
+		console.log("ANGEL: getting user details");
 		dbConnection.query(getUserSettingsSqlString, function(error, results, fields){
 			if (error) {
 				dbConnection.destroy();
-				// return res.json({error: error, when: "inserting"});
+				console.log("error: ", error);
 				return (callback({error: error}));
 			} else if (results.length === 0) {
 				return (callback({error: "User not found."}));
 			} else {
-				return (callback({userData: userModel.convertRowToUserProfileObject(results[0])} ));
+				return (callback({userData: userModel.convertRowsToUserProfileObject(results)} ));
 			}
 		});
 	}
 };
 
-function constructGetUserSettingsSqlString(userId){
-	var query = " SELECT  id, " +
-											" email, "+
-											" display_name " +
+function constructGetUserProfileSqlString(userId){
+	var query = " SELECT  users.id AS user_id, " +
+											" users.email, "+
+											" users.display_name, " +
+											" universal_todos.id AS todo_id, " +
+											" universal_todos.text " +
 
-							" FROM users " +
-							" WHERE  id = " + mysql.escape(userId);
+							" FROM users LEFT JOIN universal_todos " +
+							" ON universal_todos.creator_id = users.id" +
+							" WHERE  users.id = " + mysql.escape(userId);
 	return query;	
 }
 
